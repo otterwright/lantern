@@ -1,0 +1,67 @@
+{
+  "name": "lantern",
+  "version": "1.0.0",
+  "description": "Local-first job search: describe the role in plain English, Lantern searches hundreds of company job boards and ranks the results with your own Claude Code.",
+  "license": "MIT",
+  "author": "Otterwright <hello@lantern.otterwright.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otterwright/lantern.git"
+  },
+  "homepage": "https://github.com/otterwright/lantern#readme",
+  "bugs": {
+    "url": "https://github.com/otterwright/lantern/issues"
+  },
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:server\" \"npm:dev:ui\"",
+    "dev:server": "tsx watch src/main.ts",
+    "dev:ui": "vite --config vite.config.ts",
+    "build:ui": "vite build",
+    "build:server": "esbuild src/main.ts --bundle --platform=node --format=esm --target=node22 --packages=external --outfile=dist/server.js && node -e \"require('fs').copyFileSync('src/db/schema.sql','dist/schema.sql')\"",
+    "build": "npm run build:ui && npm run build:server",
+    "start": "npm run build && node dist/server.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fontsource-variable/bodoni-moda": "5.2.7",
+    "@fontsource-variable/hanken-grotesk": "5.2.8",
+    "@fontsource-variable/source-serif-4": "5.2.9",
+    "@fontsource-variable/spline-sans-mono": "5.2.8",
+    "@hono/node-server": "^2.1.8",
+    "@huggingface/transformers": "4.3.2",
+    "better-sqlite3": "^13.1.1",
+    "cheerio": "^1.0.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "hono": "^4.13.9",
+    "js-yaml": "^4.3.2",
+    "lucide-react": "^0.460.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.0",
+    "tailwind-merge": "^2.5.0",
+    "unpdf": "1.6.2",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0-beta",
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "concurrently": "^9.0.0",
+    "esbuild": "^0.28.2",
+    "tailwindcss": "^4.0.0-beta",
+    "tsx": "^4.23.15",
+    "typescript": "^5.6.0",
+    "vite": "^6.0.0",
+    "vitest": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
